@@ -1,3 +1,11 @@
-/**
- * Created by mozafff on 2/19/2015.
- */
+
+RFapp
+    .config(function($routeProvider){
+        $routeProvider.when('/', {
+            templateUrl : 'views/main/main.html',
+            controller : 'MainCtrl'
+        })
+            .otherwise({
+                redirectTo : '/error'
+            })
+    })
