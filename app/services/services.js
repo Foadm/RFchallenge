@@ -1,15 +1,16 @@
-var RFapp = angular.module('RFapp', ['ngRoute'])
-    .config(['$httpProvider', function($httpProvider) {
-        $httpProvider.defaults.useXDomain = true;
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    }
-    ])
-        .factory('makeRequest', ['$http', function($http){
+var RFapp = angular.module('RFapp', ['ngRoute','ui.bootstrap'])
+        .factory('makeRequest', ['$http', function($http, $scope){
             return{
                 conversion : conversion,
                 getData : getData,
-                getLocation: getLocation
-
+                getLocation: getLocation,
+                sortDates : sortDates
+            }
+            function sortDates(start,end){
+                var days = (end-start)/(1000*60*60*24);
+                var tomorrow = new Date(start);
+                console.log(tomorrow);
+                console.log(days);
             }
             function conversion(street,city,state){
                 var fullAddress = street + " " + city + " " + state;
@@ -29,8 +30,7 @@ var RFapp = angular.module('RFapp', ['ngRoute'])
                 getData(lat,lng);
             }
             function getData(lat,lng){
-                var path = 'http://api.sunrise-sunset.org/json?lat' + lat + '&' + 'lng=' + lng;
-                console.log(path);
+                var path = 'http://cors-anywhere.herokuapp.com/api.sunrise-sunset.org/json?lat=' + lat + '&' + 'lng=' + lng;
                 var request = $http({
                     url: path,
                     dataType: 'jsonp',
