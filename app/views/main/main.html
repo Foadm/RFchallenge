@@ -49,11 +49,11 @@
                 <th>Day Length</th>
             </tr>
             <tbody>
-            <tr>
+            <tr ng-repeat="result in results">
                 <td>Date here</td>
-                <td>{{sunRise}}</td>
-                <td>{{sunSet}}</td>
-                <td>{{dayLength}}</td>
+                <td>{{result.results.sunrise}}</td>
+                <td>{{result.results.sunset}}</td>
+                <td>{{result.results.day_length}}</td>
             </tr>
             </tbody>
             </thead>

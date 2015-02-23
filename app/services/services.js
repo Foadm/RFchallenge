@@ -1,5 +1,5 @@
 var RFapp = angular.module('RFapp', ['ngRoute','ui.bootstrap'])
-        .factory('makeRequest', ['$http', function($http,$q){
+        .factory('makeRequest', ['$http', '$q', function($http,$q){
             return{
                 getLocation : getLocation,
                 getData : getData,
@@ -28,7 +28,7 @@ var RFapp = angular.module('RFapp', ['ngRoute','ui.bootstrap'])
             function handleSuccess(response){
                 return(response.data.results[0].geometry.location)
             }
-            function getData(sortedDates, lat,lng){
+            function getData(sortedDates, lat, lng){
                 var promises = [];
                 angular.forEach(sortedDates, function(date){
                     var deffered  = $q.defer();
@@ -36,10 +36,11 @@ var RFapp = angular.module('RFapp', ['ngRoute','ui.bootstrap'])
                     var request = $http.get(path, { cache: true });
                     request.success(function(data){
                         deffered.resolve(data);
-                    })
+                    });
                     promises.push(deffered.promise);
+                    console.log(promises);
                 });
-                console.log(promises)
+                //console.log(promises)
 
                 return $q.all(promises);
             }

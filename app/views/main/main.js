@@ -12,12 +12,11 @@ RFapp
                     $scope.lng = result.lng;
                         makeRequest.getData(sortedDates,$scope.lat,$scope.lng  )
                             .then(function (result) {
-                                $scope.sunRise = result.results.sunrise;
-                                $scope.sunSet = result.results.sunset;
-                                $scope.dayLength = result.results.day_length;
+                                $scope.results = result;
                             });
                 });
         }
+        //console.log($scope.sortDates);
 
 
 
