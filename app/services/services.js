@@ -31,9 +31,13 @@ var RFapp = angular.module('RFapp', ['ngRoute','ui.bootstrap'])
             function getData(sortedDates, lat,lng){
                 var promises = [];
                 angular.forEach(sortedDates, function(date){
+                    var deffered  = $q.defer();
                     var path = 'http://cors-anywhere.herokuapp.com/api.sunrise-sunset.org/json?lat=' + lat + '&' + 'lng=' + lng + "=" + date;
                     var request = $http.get(path, { cache: true });
-                    promises.push(request);
+                    request.success(function(data){
+                        deffered.resolve(data);
+                    })
+                    promises.push(deffered.promise);
                 });
                 console.log(promises)
 
