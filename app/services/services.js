@@ -28,36 +28,16 @@ var RFapp = angular.module('RFapp', ['ngRoute','ui.bootstrap'])
             function handleSuccess(response){
                 return(response.data.results[0].geometry.location)
             }
-            function getData(locationDays){
+            function getData(sortedDates, lat,lng){
                 var promises = [];
-                angular.forEach(locationDay, function(locationDay)){
-
-                };
-                    var path = 'http://cors-anywhere.herokuapp.com/api.sunrise-sunset.org/json?lat=' + lat + '&' + 'lng=' + lng + "=" + sortedDates[i];
+                angular.forEach(sortedDates, function(date){
+                    var path = 'http://cors-anywhere.herokuapp.com/api.sunrise-sunset.org/json?lat=' + lat + '&' + 'lng=' + lng + "=" + date;
                     var request = $http.get(path, { cache: true });
                     promises.push(request);
+                });
+                console.log(promises)
 
-                debugger;
                 return $q.all(promises);
             }
-        UploadService.uploadQuestion = function(questions){
-
-            var promises = [];
-
-            angular.forEach(questions , function(question) {
-
-                var promise = $http({
-                    url   : 'upload/question',
-                    method: 'POST',
-                    data  : question
-                });
-
-                promises.push(promise);
-
-            });
-
-            return $q.all(promises);
-        }
-
 
         }]);

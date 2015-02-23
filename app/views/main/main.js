@@ -8,12 +8,9 @@ RFapp
             var sortedDates = makeRequest.sortDates($scope.startdt, $scope.enddt);
             makeRequest.getLocation($scope.street, $scope.city , $scope.state)
                 .then(function(result){
-                    $scope.locationDays = {
-                        lat : result.lat,
-                        lng : result.lng,
-                        sortedDates : sortedDates
-                    }
-                        makeRequest.getData($scope.locationDays)
+                    $scope.lat = result.lat;
+                    $scope.lng = result.lng;
+                        makeRequest.getData(sortedDates,$scope.lat,$scope.lng  )
                             .then(function (result) {
                                 $scope.sunRise = result.results.sunrise;
                                 $scope.sunSet = result.results.sunset;
