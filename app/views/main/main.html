@@ -1,46 +1,63 @@
-<form class="form-horizontal" ng-controller="MainCtrl" ng-submit="submit(); submitted = true;">
-    <div class="form-group">
-        <label for="street" class="col-sm-2 control-label">Street</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="street" placeholder="Street" ng-model="street">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="city" class="col-sm-2 control-label">City</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="city" placeholder="City" ng-model="city">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="state" class="col-sm-2 control-label">State</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="state" placeholder="State" ng-model="state">
-        </div>
-    </div>
-    <div class="row">
+<div class="row wrapper" ng-controller="MainCtrl">
+    <form class="form-horizontal" ng-submit="submit(); submitted = true;">
         <div class="form-group">
-            <label for="td-from" class="col-sm-2 control-label">From</label>
-            <div class="col-sm-4">
-            <input type="text" class="form-control" id="td-from" datepicker-popup="{{format}}" ng-model="startdt" is-open="startOpened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
+            <label for="street" class="col-sm-2 control-label">Street</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="street" placeholder="Street" ng-model="street">
             </div>
         </div>
         <div class="form-group">
-            <label for="td-to" class="col-sm-2 control-label">From</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="td-to" datepicker-popup="{{format}}" ng-model="enddt" is-open="endOpened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+            <label for="city" class="col-sm-2 control-label">City</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="city" placeholder="City" ng-model="city">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="state" class="col-sm-2 control-label">State</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="state" placeholder="State" ng-model="state">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="td-from" class="col-sm-2 control-label">Dates</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="td-from" datepicker-popup="{{format}}" ng-model="startdt" is-open="startOpened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openStart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+            </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="td-to" datepicker-popup="{{format}}" ng-model="enddt" is-open="endOpened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Submit</button>
             </div>
         </div>
+    </form>
+    <div>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Sunrise</th>
+                <th>Sunset</th>
+                <th>Day Length</th>
+            </tr>
+            <tbody>
+            <tr>
+                <td>Date here</td>
+                <td>{{sunRise}}</td>
+                <td>{{sunSet}}</td>
+                <td>{{dayLength}}</td>
+            </tr>
+            </tbody>
+            </thead>
+        </table>
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
-        </div>
-    </div>
+</div>
 
-</form>

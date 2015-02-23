@@ -5,9 +5,27 @@ RFapp
         $scope.state = null;
 
         $scope.submit =  function(){
-            makeRequest.conversion($scope.street, $scope.city , $scope.state);
-            makeRequest.sortDates($scope.startdt, $scope.enddt);
+            var sortedDates = makeRequest.sortDates($scope.startdt, $scope.enddt);
+            makeRequest.getLocation($scope.street, $scope.city , $scope.state)
+                .then(function(result){
+                    $scope.locationDays = {
+                        lat : result.lat,
+                        lng : result.lng,
+                        sortedDates : sortedDates
+                    }
+                        makeRequest.getData($scope.locationDays)
+                            .then(function (result) {
+                                $scope.sunRise = result.results.sunrise;
+                                $scope.sunSet = result.results.sunset;
+                                $scope.dayLength = result.results.day_length;
+                            });
+                });
         }
+
+
+
+
+
 
         $scope.today = function() {
             $scope.startdt = new Date();
@@ -34,7 +52,6 @@ RFapp
             $event.stopPropagation();
             $scope.endOpened = true;
         };
-
         $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1

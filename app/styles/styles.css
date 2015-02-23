@@ -1,0 +1,19 @@
+.form-control{
+    width:51%;
+}
+.wrapper{
+    padding: 12px;
+    width: 80%;
+    margin: 0 auto;
+}
+#td-from, #td-to{
+    float:left;
+    width:55%;
+}
+#td-from .col-sm-3, #td-to .col-sm-3{
+    padding-right:0;
+}
+
+.input-group-btn{
+    foat:left;
+}

@@ -20,6 +20,8 @@
 *.tar
 *.zip
 .idea/
+/app/bower_components
+
 # Logs and databases #
 ######################
 *.log
