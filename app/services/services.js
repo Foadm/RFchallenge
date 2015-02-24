@@ -4,10 +4,14 @@ var RFapp = angular.module('RFapp', ['ngRoute','ui.bootstrap'])
                 getLocation : getLocation,
                 getData : getData,
                 getLocation: getLocation,
-                sortDates : sortDates
+                sortDates : sortDates,
+                singleRequest : singleRequest
             }
 
             function sortDates(start,end){
+                if(typeof end === 'undefined'){
+                    end = moment(start).add(7, 'days');
+                };
                 var numberOfDays = Math.ceil((end-start)/(1000*60*60*24));
                 var currentDate = moment(start);
                 var sortedDates = [];
@@ -30,19 +34,33 @@ var RFapp = angular.module('RFapp', ['ngRoute','ui.bootstrap'])
             }
             function getData(sortedDates, lat, lng){
                 var promises = [];
-                angular.forEach(sortedDates, function(date){
+                if(sortedDates.constructor === Array){
+                    angular.forEach(sortedDates, function(date){
+                        var deffered  = $q.defer();
+                        var path = 'http://cors-anywhere.herokuapp.com/api.sunrise-sunset.org/json?lat=' + lat + '&' + 'lng=' + lng + "=" + date;
+                        var request = $http.get(path);
+                        request.success(function(data){
+                            deffered.resolve(data);
+                        });
+                        promises.push(deffered.promise);
+                        console.log(promises);
+                    });
+                }else{
                     var deffered  = $q.defer();
                     var path = 'http://cors-anywhere.herokuapp.com/api.sunrise-sunset.org/json?lat=' + lat + '&' + 'lng=' + lng + "=" + date;
-                    var request = $http.get(path, { cache: true });
+                    var request = $http.get(path);
                     request.success(function(data){
                         deffered.resolve(data);
                     });
-                    promises.push(deffered.promise);
-                    console.log(promises);
-                });
-                //console.log(promises)
-
+                }
                 return $q.all(promises);
+            }
+            function singleRequest(date, lat, lng){
+                var path = 'http://cors-anywhere.herokuapp.com/api.sunrise-sunset.org/json?lat=' + lat + '&' + 'lng=' + lng + "=" + date;
+                var request = $http.get(path);
+                request.success(function(response){
+                    return(response);
+                });
             }
 
         }]);
