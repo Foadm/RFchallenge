@@ -1,5 +1,5 @@
 RFapp
-    .controller('MainCtrl', function($scope,$filter,makeRequest){
+    .controller('MainCtrl', function($scope,$filter,$rootScope, makeRequest){
         $scope.street = null;
         $scope.city = null;
         $scope.state = null;
@@ -8,15 +8,17 @@ RFapp
             var sortedDates = makeRequest.sortDates($scope.startdt, $scope.enddt);
             makeRequest.getLocation($scope.street, $scope.city , $scope.state)
                 .then(function(result){
-                    $scope.lat = result.lat;
-                    $scope.lng = result.lng;
-                        makeRequest.getData(sortedDates,$scope.lat,$scope.lng  )
-                            .then(function (result) {
+                    $rootScope.lat = result.lat;
+                    $rootScope.lng = result.lng;
+                        makeRequest.getData(sortedDates,$rootScope.lat,$rootScope.lng)
+                            .then(function(result) {
                                 $scope.results = result;
+                                $scope.dates = sortedDates;
+
                             });
                 });
+            console.log($scope.dates);
         }
-        //console.log($scope.sortDates);
 
 
 
