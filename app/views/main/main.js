@@ -17,13 +17,7 @@ RFapp
 
                             });
                 });
-            console.log($scope.dates);
         }
-
-
-
-
-
 
         $scope.today = function() {
             $scope.startdt = new Date();
