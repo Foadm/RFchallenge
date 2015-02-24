@@ -4,8 +4,7 @@ var RFapp = angular.module('RFapp', ['ngRoute','ui.bootstrap'])
                 getLocation : getLocation,
                 getData : getData,
                 getLocation: getLocation,
-                sortDates : sortDates,
-                singleRequest : singleRequest
+                sortDates : sortDates
             }
 
             function sortDates(start,end){
@@ -34,33 +33,16 @@ var RFapp = angular.module('RFapp', ['ngRoute','ui.bootstrap'])
             }
             function getData(sortedDates, lat, lng){
                 var promises = [];
-                if(sortedDates.constructor === Array){
                     angular.forEach(sortedDates, function(date){
                         var deffered  = $q.defer();
-                        var path = 'http://cors-anywhere.herokuapp.com/api.sunrise-sunset.org/json?lat=' + lat + '&' + 'lng=' + lng + "=" + date;
-                        var request = $http.get(path);
+                        var path = 'http://cors-anywhere.herokuapp.com/api.sunrise-sunset.org/json';
+                        var request = $http.get(path, { params: { lat: lat, lng: lng, date: date } });
                         request.success(function(data){
                             deffered.resolve(data);
                         });
                         promises.push(deffered.promise);
-                        console.log(promises);
                     });
-                }else{
-                    var deffered  = $q.defer();
-                    var path = 'http://cors-anywhere.herokuapp.com/api.sunrise-sunset.org/json?lat=' + lat + '&' + 'lng=' + lng + "=" + date;
-                    var request = $http.get(path);
-                    request.success(function(data){
-                        deffered.resolve(data);
-                    });
-                }
                 return $q.all(promises);
-            }
-            function singleRequest(date, lat, lng){
-                var path = 'http://cors-anywhere.herokuapp.com/api.sunrise-sunset.org/json?lat=' + lat + '&' + 'lng=' + lng + "=" + date;
-                var request = $http.get(path);
-                request.success(function(response){
-                    return(response);
-                });
             }
 
         }]);
