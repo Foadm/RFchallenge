@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default" id="submit-btn">Submit</button>
             </div>
         </div>
     </form>
@@ -61,7 +61,7 @@
                 <th>Day Length</th>
             </tr>
             <tbody>
-            <tr ng-repeat="result in results">
+            <tr ng-repeat="result in results"  id='data-row' >
                 <td>{{result.results.sunrise}}</td>
                 <td>{{result.results.sunset}}</td>
                 <td>{{result.results.day_length}}</td>
