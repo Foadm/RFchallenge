@@ -1,20 +1,18 @@
 <div class="row wrapper" ng-controller="DetailCtrl">
-{{date}}
-{{results[0].results.sunrise}}
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th>solar_noon</th>
-            <th>civil_twilight_begin</th>
-            <th>civil_twilight_end</th>
+            <th>Solar noon</th>
+            <th>Civil Twilight Begin</th>
+            <th>Civil Twilight End</th>
             <th>solar_noon - nautical_twilight_end</th>
         </tr>
         <tbody>
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{results.solar_noon}}</td>
+            <td>{{results.civil_twilight_begin}}</td>
+            <td>{{results.civil_twilight_end}}</td>
+            <td>{{rfNauticalAfternoon | number:2}} Hours</td>
         </tr>
         </tbody>
         </thead>

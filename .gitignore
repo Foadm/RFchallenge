@@ -37,3 +37,7 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+app/bower_components
+node_modules
+submission_patches/
