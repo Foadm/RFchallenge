@@ -19,7 +19,11 @@ describe('angularjs homepage', function() {
     });
     it('should click on a date and change route and populate the next table', function(){
 
-        element.all(by.model('dates')).get(1).click();
+        //element.all(by.repeater("dates in dates" )).first().click();
         //expect(browser.getCurrentUrl()).toEqual('http://localhost:8080/#/' + itemId);
+        element.all(by.id("date" )).first().click();
+        browser.wait(function(){
+            return element(by.id('p-info')).isPresent();
+        });
     });
 });

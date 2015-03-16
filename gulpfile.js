@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var connect = require('gulp-connect');
 var karma = require('gulp-karma');
 var protractor = require("gulp-protractor").protractor;
+var webdriver_standalone = require("gulp-protractor").webdriver_standalone;
+
 gulp.task('connect', function() {
     connect.server({
         root: 'app/', //Our application code will live inside of app/
@@ -25,11 +27,11 @@ gulp.task('test', function() {
             throw err;
         });
 });
+//run selenium server
+gulp.task('webdriver_standalone', webdriver_standalone);
+
 gulp.task('protractor', function(){
-    connect.server({
-        root: 'app/', //Our application code will live inside of app/
-        port: 8080
-    });
+
     gulp.src(["specs/ETEspecs.js"])
         .pipe(protractor({
             configFile: "conf.js"
